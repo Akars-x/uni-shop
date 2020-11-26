@@ -92,7 +92,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
+var components = {
+  mySearch: function() {
+    return __webpack_require__.e(/*! import() | components/my-search/my-search */ "components/my-search/my-search").then(__webpack_require__.bind(null, /*! @/components/my-search/my-search.vue */ 63))
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -165,6 +169,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -179,7 +187,7 @@ var _default =
 
   onLoad: function onLoad() {
     var sysInfo = uni.getSystemInfoSync(); //获取当前系统的信息
-    this.wh = sysInfo.windowHeight;
+    this.wh = sysInfo.windowHeight - 50;
     this.getCateList(); //调用请求方法
   },
 
@@ -211,6 +219,13 @@ var _default =
       // url 需要跳转的应用内非 tabBar 的页面的路径 , 路径后可以带参数。参数与路径之间使用?分隔，参数键与参数值用=相连，不同参数用&分隔；
       uni.navigateTo({
         url: '/subpkg/goods_list/goods_list?cid=' + item3.cat_id });
+
+    },
+
+    // 跳转到分包中的搜索页面
+    gotoSearch: function gotoSearch() {
+      uni.navigateTo({
+        url: '/subpkg/search/search' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

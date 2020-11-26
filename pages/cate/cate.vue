@@ -1,5 +1,9 @@
 <template>
   <view>
+    <!-- 这种自定义组件标签里面没有提供原生事件，不能直接使用这些事件(如点击事件) -->
+    <!-- 要使用的话，一是使用vue提供的native属性，在事件后面 加上.native-->
+    <!-- 或者在子组件中通过this.$emit向外暴露一个点击(click)事件，这里的标签里就可以使用这个点击事件 -->
+    <my-search @click.native="gotoSearch"></my-search>
     <view class="cate-container">
       <!-- 左侧的滚动视图区域 -->
       <scroll-view class="left-scroll-view" scroll-y :style="{height:wh+'px'}">
@@ -47,7 +51,7 @@
 
     onLoad() {
       const sysInfo = uni.getSystemInfoSync() //获取当前系统的信息
-      this.wh = sysInfo.windowHeight
+      this.wh = sysInfo.windowHeight - 50
       this.getCateList() //调用请求方法
     },
 
@@ -59,7 +63,7 @@
         if (res.meta.status !== 200) return uni.$showMsg()
         this.cateList = res.message
         // 初始化没点击一级分类时给二级分类赋值，否则开始页面不显示
-        this.cateLevel2 = res.message[0].children   
+        this.cateLevel2 = res.message[0].children
       },
 
       // 选中项改变的事件处理函数
@@ -80,7 +84,14 @@
         uni.navigateTo({
           url: '/subpkg/goods_list/goods_list?cid=' + item3.cat_id
         })
-      }
+      },
+
+      // 跳转到分包中的搜索页面
+      gotoSearch() {
+        uni.navigateTo({
+          url: '/subpkg/search/search'
+        })
+      },
     }
   }
 </script>
